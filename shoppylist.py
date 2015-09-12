@@ -1,31 +1,41 @@
 shopping_list = []
 
-def show_help():
-	print("What should we pick up at the store?")
-	print("Enter DONE to stop. Enter HELP for help. Enter SHOW to show what you have so far.")
-
-def add_to_list(item):
-	shopping_list.append(item)
-	print("Added! List has {} items".format(len(shopping_list)))
+def show_help(): 
+	print ("\nSeparate each item with a comma.")
+	print("Type DONE to quit, REMOVE to remove something, 	SHOW to see the current list, and HELP to get this message.")
 
 def show_list():
-	print("Here's your list:" )
+	count = 1
 	for item in shopping_list:
-		print(item)
+		print("{}: {}".format(count,item))
+		count += 1
 
+print("Give me a list of things you want to shop for.")
 show_help()
 
 while True:
-	new_item = input("> ")
-	if new_item == "DONE":
+	new_stuff = input("> ")
+
+	if new_stuff == "DONE":
+		print("\nHere's your list:")
+		show_list()
 		break
-	elif new_item == 'HELP':
+	elif new_stuff == "HELP":
 		show_help()
 		continue
-	elif new_item == 'SHOW':
+	elif new_stuff == "SHOW":
 		show_list()
 		continue
-	add_to_list(new_item)
-	continue
+	else:
+		new_list = new_stuff.split(",")
+		index = input('Add this at a certain spot? Press enter for the end of the list, \n'
+					  'or give me a number. Currently {} items in the list.'.format(len(shopping_list)))
+		if index:
+			spot = int(index) - 1
+			for item in new_list:
+				shopping_list.insert(spot, item.strip())
+				spot += 1
+		else:
+			for item in new_list:
+				shopping_list.append(item.strip())
 
-show_list()
