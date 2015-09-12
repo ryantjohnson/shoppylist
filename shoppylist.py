@@ -7,13 +7,19 @@ def remove_item(idx):
 
 def show_help(): 
 	print ("\nSeparate each item with a comma.")
-	print("Type DONE to quit, REMOVE to delete something, 	SHOW to see the current list, and HELP to get this message.")
+	print("Type DONE to quit, REMOVE to delete something,	CLEAR to reset the list, SHOW to see the current list, and HELP to get this message.")
 
 def show_list():
 	count = 1
 	for item in shopping_list:
 		print("{}: {}".format(count,item))
 		count += 1
+
+def clear_list():
+	while len(shopping_list) > 0:
+		for item in shopping_list:
+			shopping_list.remove(item)
+	print("List cleared.")
 
 print("Give me a list of things you want to shop for.")
 show_help()
@@ -35,6 +41,9 @@ while True:
 		show_list()
 		idx = input("Which item? Tell me the number.")
 		remove_item(int(idx))
+		continue
+	elif new_stuff == "CLEAR":
+		clear_list()
 		continue
 	else:
 		new_list = new_stuff.split(",")
